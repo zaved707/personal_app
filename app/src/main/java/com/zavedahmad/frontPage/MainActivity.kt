@@ -18,10 +18,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -41,8 +44,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.NavHost
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.zavedahmad.frontPage.ui.MyBottomNavigationBar
+
 import com.zavedahmad.frontPage.ui.theme.ZavedAhmadTheme
-import org.intellij.lang.annotations.JdkConstants
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,11 +60,21 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ZavedAhmadTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
+                val navController = rememberNavController()
+                Scaffold(modifier = Modifier.fillMaxSize(), bottomBar = {MyBottomNavigationBar(navController)}) { innerPadding ->
 
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                    NavHost(navController = navController, startDestination = "Main") {
+                        composable("Main") {
+                            Greeting(
+
+                                modifier = Modifier.padding(innerPadding), navController
+                            )
+                        }
+                        composable("AboutMeScreen") {
+                            ScreenB()
+                        }
+                    }
+
                 }
             }
         }
@@ -62,13 +82,19 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(modifier: Modifier = Modifier) {
+fun Greeting(modifier: Modifier = Modifier, navController: NavController) {
     val fontSize = 30
-    Column(modifier = modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState()),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Card(
             onClick = {}, modifier = Modifier.fillMaxWidth(
                 0.8f
             )
+
         ) {
             Box(contentAlignment = Alignment.Center, modifier = Modifier.padding(10.dp)) {
                 Text(
@@ -81,6 +107,9 @@ fun Greeting(modifier: Modifier = Modifier) {
             }
 
         }
+
+
+
         Spacer(modifier = Modifier.height(30.dp))
 
         Image(
@@ -106,31 +135,53 @@ fun Greeting(modifier: Modifier = Modifier) {
             }
         }
         Spacer(modifier = Modifier.height(30.dp))
-        Row (modifier = Modifier.fillMaxWidth(0.8f), horizontalArrangement = Arrangement.SpaceBetween){
+        Row(
+            modifier = Modifier.fillMaxWidth(0.8f),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
             Image(
-                modifier = Modifier.size(100.dp).clip(CircleShape).clickable(onClick = {}),
+                modifier = Modifier
+                    .size(100.dp)
+                    .clip(CircleShape)
+                    .clickable(onClick = {}),
                 contentScale = ContentScale.Crop,
                 painter = painterResource(R.drawable.github),
                 contentDescription = "dragon"
             )
             Image(
-                modifier = Modifier.size(100.dp).clip(CircleShape).clickable(onClick = {}),
+                modifier = Modifier
+                    .size(100.dp)
+                    .clip(CircleShape)
+                    .clickable(onClick = {}),
                 contentScale = ContentScale.Fit,
                 painter = painterResource(R.drawable.icons8_instagram),
                 contentDescription = "dragon"
             )
         }
 
-
-
+        Button(onClick = { navController.navigate("AboutMeScreen") }) { Text("GoNextScreen") }
     }
 
 }
 
-@Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
-    ZavedAhmadTheme {
-        Greeting()
+
+fun ScreenB() {
+    Card(
+        onClick = {}, modifier = Modifier.fillMaxWidth(
+            0.8f
+        )
+
+    ) {
+        Box(contentAlignment = Alignment.Center, modifier = Modifier.padding(10.dp)) {
+            Text(
+                text = "Hello im zaved ahmad!",
+                modifier = Modifier.padding(10.dp),
+                fontSize = 30.sp,
+                lineHeight = 30.sp
+            )
+
+        }
+
     }
 }
