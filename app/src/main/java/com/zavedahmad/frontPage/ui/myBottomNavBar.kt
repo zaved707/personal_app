@@ -27,12 +27,12 @@ data class navBarItem(
     val selectedIcon: ImageVector,
 
     val label: String,
-    val ScreenName : String
+    val ScreenName: String
 )
 
 @Composable
 fun MyBottomNavigationBar(navController: NavController) {
-    var selected = remember {   mutableStateOf(0) }
+    var selected = remember { mutableStateOf(0) }
     val bottomBarItemsList = listOf(
         navBarItem(
 
@@ -53,19 +53,23 @@ fun MyBottomNavigationBar(navController: NavController) {
         )
     )
     NavigationBar() {
-        for (x in 0..bottomBarItemsList.size-1) {
+        for (x in 0..bottomBarItemsList.size - 1) {
 
             NavigationBarItem(
                 label = { Text(bottomBarItemsList[x].label) },
-                selected = x== selected.value,
+                selected = x == selected.value,
 
-                onClick = {navController.navigate(bottomBarItemsList[x].ScreenName); selected.value= x },
+                onClick = {
+                    if(selected.value != x){
+                    navController.navigate(bottomBarItemsList[x].ScreenName)
+                    selected.value = x}
+                },
 
                 icon = {
-                    if (x== selected.value) {
+                    if (x == selected.value) {
                         val icon = bottomBarItemsList[x].selectedIcon
                         Icon(icon, contentDescription = "home")
-                    }else{
+                    } else {
                         val icon = bottomBarItemsList[x].icon
                         Icon(icon, contentDescription = "home")
                     }

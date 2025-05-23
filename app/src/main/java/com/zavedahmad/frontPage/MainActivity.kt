@@ -29,6 +29,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -71,7 +72,7 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable("AboutMeScreen") {
-                            ScreenB()
+                            ScreenB(  modifier = Modifier.padding(innerPadding))
                         }
                     }
 
@@ -159,27 +160,49 @@ fun Greeting(modifier: Modifier = Modifier, navController: NavController) {
             )
         }
 
-        Button(onClick = { navController.navigate("AboutMeScreen") }) { Text("GoNextScreen") }
+
     }
 
 }
 
 @Composable
 
-fun ScreenB() {
-    Card(
-        onClick = {}, modifier = Modifier.fillMaxWidth(
-            0.8f
-        )
+fun ScreenB(modifier: Modifier) {
 
-    ) {
-        Box(contentAlignment = Alignment.Center, modifier = Modifier.padding(10.dp)) {
-            Text(
-                text = "Hello im zaved ahmad!",
-                modifier = Modifier.padding(10.dp),
-                fontSize = 30.sp,
-                lineHeight = 30.sp
+    Column(modifier = modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
+        Card(
+            onClick = {}, modifier = Modifier.fillMaxWidth(
+                0.8f
             )
+
+        ) {
+            Box(contentAlignment = Alignment.Center, modifier = Modifier.padding(10.dp)) {
+                Text(
+                    text = "About Me",
+                    modifier = Modifier.padding(10.dp),
+                    fontSize = 30.sp,
+                    lineHeight = 30.sp
+                )
+
+            }
+
+        }
+        Spacer(modifier = Modifier.height(20.dp))
+        OutlinedCard(
+             modifier = Modifier.fillMaxWidth(
+                0.8f
+            )
+
+        ) {
+            Box(contentAlignment = Alignment.Center, modifier = Modifier.padding(20.dp)) {
+                Text(
+                    text = "hello i am a hobbyist in programming and i stay wake all night just to programs shit in android and sometimes javascript too . i used to do js a lot but since i transfered to kotlin because i wanted to experiment with mobile development and so far i am loving it its simple and robust and also it taught me type checking and nll safety and things like that ",
+                    modifier = Modifier.padding(10.dp),
+                    fontSize = 20.sp,
+                    lineHeight = 30.sp
+                )
+
+            }
 
         }
 
