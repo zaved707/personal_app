@@ -39,6 +39,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -85,6 +86,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Greeting(modifier: Modifier = Modifier, navController: NavController) {
     val fontSize = 30
+    val uriHandler = LocalUriHandler.current
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -144,7 +146,7 @@ fun Greeting(modifier: Modifier = Modifier, navController: NavController) {
                 modifier = Modifier
                     .size(100.dp)
                     .clip(CircleShape)
-                    .clickable(onClick = {}),
+                    .clickable(onClick = {uriHandler.openUri("https://github.com/zaved707")}),
                 contentScale = ContentScale.Crop,
                 painter = painterResource(R.drawable.github),
                 contentDescription = "dragon"
@@ -153,7 +155,7 @@ fun Greeting(modifier: Modifier = Modifier, navController: NavController) {
                 modifier = Modifier
                     .size(100.dp)
                     .clip(CircleShape)
-                    .clickable(onClick = {}),
+                    .clickable(onClick = {uriHandler.openUri("https://www.instagram.com/zavedgram")}),
                 contentScale = ContentScale.Fit,
                 painter = painterResource(R.drawable.icons8_instagram),
                 contentDescription = "dragon"
@@ -196,7 +198,7 @@ fun ScreenB(modifier: Modifier) {
         ) {
             Box(contentAlignment = Alignment.Center, modifier = Modifier.padding(20.dp)) {
                 Text(
-                    text = "hello i am a hobbyist in programming and i stay wake all night just to programs shit in android and sometimes javascript too . i used to do js a lot but since i transfered to kotlin because i wanted to experiment with mobile development and so far i am loving it its simple and robust and also it taught me type checking and nll safety and things like that ",
+                    text = "hello i am a hobbyist in programming and i stay wake all night just to programs shit in android and sometimes javascript too . i used to do js a lot but since i transferred to kotlin because i wanted to experiment with mobile development and so far i am loving it its simple and robust and also it taught me type checking and nll safety and things like that. ",
                     modifier = Modifier.padding(10.dp),
                     fontSize = 20.sp,
                     lineHeight = 30.sp

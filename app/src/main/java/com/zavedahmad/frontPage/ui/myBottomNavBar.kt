@@ -18,6 +18,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.vector.ImageVector
+
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 
@@ -32,6 +33,7 @@ data class navBarItem(
 
 @Composable
 fun MyBottomNavigationBar(navController: NavController) {
+
     var selected = remember { mutableStateOf(0) }
     val bottomBarItemsList = listOf(
         navBarItem(
